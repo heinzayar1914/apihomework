@@ -42,7 +42,7 @@ function App() {
           <Box component="main" sx={{ flexGrow: 1, mt: 2 }}>
             <Routes>
               <Route path="/" element={<Body posts={posts} setPosts={setPosts} />} />
-              <Route path="/posts/:id" element={<PostDetail posts={posts} setPosts={setPosts} />} />
+              <Route path="/posts/:id" element={<PostDetail posts={posts} />} />
               <Route path="/create" element={<CreatePost setPosts={setPosts} />} />
               <Route path="/edit/:id" element={<EditPost posts={posts} setPosts={setPosts} />} />
             </Routes>

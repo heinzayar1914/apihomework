@@ -34,7 +34,7 @@ function Body ({ posts, setPosts }) {
         await fetch(`https://dummyjson.com/posts/${id}`, { method: "DELETE" });
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (!posts) return <p>Loading...</p>;
     if (posts.length === 0) return <p>No data available</p>;
 
     return (
