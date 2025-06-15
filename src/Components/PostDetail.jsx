@@ -12,22 +12,12 @@ function PostDetail({ posts, setPosts }) {
   const navigate = useNavigate();
   const post = posts.find(p => String(p.id) === String(id));
 
-  useEffect(() => {
-    fetch(`https://dummyjson.com/posts/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setPost(data);
-        setLoading(false);
-      });
-  }, [id]);
-
-  const handleDelete = async () => {
-    await fetch(`https://dummyjson.com/posts/${id}`, { method: "DELETE" });
-    alert("Post deleted!");
-    navigate(`/posts/${form.id}`);
-  };
-
   if (!post) return <p>Post not found</p>;
+
+  const handleDelete = () => {
+    setPosts(posts.filter(p => String(p.id) !== String(id)));
+    navigate("/");
+  };
 
   return (
     <Box sx={{ width: '500', mx: 'auto', padding: 2, justifyContent: 'center', alignItems: 'center' }}>
@@ -53,17 +43,16 @@ function PostDetail({ posts, setPosts }) {
       <Stack direction="row" spacing={3} alignItems="center" sx={{ mb: 2 }}>
         <Stack direction="row" spacing={0.5} alignItems="center">
           <ThumbUpAltOutlinedIcon fontSize="small" />
-          <Typography variant="body2">{post.reactions?.likes}</Typography>
+          <Typography variant="body2">{post.reactions?.likes || 0}</Typography>
         </Stack>
         <Stack direction="row" spacing={0.5} alignItems="center">
           <ThumbDownAltOutlinedIcon fontSize="small" />
-          <Typography variant="body2">{post.reactions?.dislikes}</Typography>
+          <Typography variant="body2">{post.reactions?.dislikes || 0}</Typography>
         </Stack>
         <Stack direction="row" spacing={0.5} alignItems="center">
           <VisibilityOutlinedIcon fontSize="small" />
           <Typography variant="body2">{post.views || 0}</Typography>
         </Stack>
-        {/* Edit and Delete buttons */}
         <Button
           component={Link}
           to={`/edit/${post.id}`}
